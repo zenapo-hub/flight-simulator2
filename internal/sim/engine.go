@@ -109,6 +109,9 @@ func (e *Engine) Run(ctx context.Context) error {
 
 	subs := map[chan AircraftState]struct{}{}
 
+	// ✅ Keep last warning in actor-owned state so GET /state can return it too.
+	lastWarning := ""
+
 	// Simple tuning
 	posTolM := 25.0
 	altTolM := 10.0
@@ -225,7 +228,7 @@ func (e *Engine) Run(ctx context.Context) error {
 
 		case req := <-e.subscribeCh:
 			subs[req.ch] = struct{}{}
-			req.ch <- buildSnapshot(now, "")
+			req.ch <- buildSnapshot(now, lastWarning)
 
 		case ch := <-e.unsubCh:
 			if _, ok := subs[ch]; ok {
@@ -234,7 +237,8 @@ func (e *Engine) Run(ctx context.Context) error {
 			}
 
 		case req := <-e.stateReqCh:
-			req.reply <- buildSnapshot(now, "")
+			// ✅ return latest warning, not an always-empty string
+			req.reply <- buildSnapshot(now, lastWarning)
 
 		case cmd := <-e.cmdCh:
 			switch cmd.Type() {
@@ -243,12 +247,14 @@ func (e *Engine) Run(ctx context.Context) error {
 				traj = nil
 				trajIdx = 0
 				vel = vector.Vec3{}
+				lastWarning = ""
 
 			case CmdHold:
 				active = cmd
 				traj = nil
 				trajIdx = 0
 				vel = vector.Vec3{}
+				lastWarning = ""
 
 			case CmdGoTo, CmdTrajectory:
 				setActive(cmd)
@@ -331,6 +337,9 @@ func (e *Engine) Run(ctx context.Context) error {
 			pos.X += vel.X * dt
 			pos.Y += vel.Y * dt
 			pos.Z += vel.Z * dt
+
+			// ✅ store warning for GET /state responses
+			lastWarning = warning
 
 			st := buildSnapshot(now, warning)
 			publish(st)

@@ -103,14 +103,4 @@ Terrain:
 
 - `/state` returns the latest snapshot
 - `/stream` provides continuous SSE updates (~tick rate)
-- warnings (e.g., terrain-floor clipping) are included in state snapshots
 
----
-
-## Extensions (Future Work)
-
-- command IDs + status tracking
-- gRPC transport
-- more advanced trajectories (segments, turn radius)
-- Prometheus metrics endpoint
-- multiple aircraft simulation

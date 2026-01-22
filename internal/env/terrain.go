@@ -40,7 +40,7 @@ func (t Terrain) Apply(dt float64, pos vector.Vec3, vel vector.Vec3) (vector.Vec
 			vel.Z = 0
 		}
 
-		return pos, vel, "terrain collision avoided"
+		return pos, vel, "terrain-floor: altitude clipped to safety margin"
 	}
 
 	return pos, vel, ""

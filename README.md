@@ -26,6 +26,24 @@ Choose one of the following:
 
 ## 🏃 Run the Server
 
+### ✅ Run using a published Docker image (GHCR) (recommended for reviewers)
+
+```bash
+docker pull ghcr.io/zenapo-hub/flight-simulator2:latest
+docker run --rm -p 8080:8080 ghcr.io/zenapo-hub/flight-simulator2:latest
+```
+
+Verify it is alive:
+
+```bash
+curl -s http://localhost:8080/health
+# ok
+```
+
+Stop: press `Ctrl+C` (or the container will stop when you close the terminal).
+
+---
+
 ### ✅ Build & run locally (Docker Compose)
 
 From repository root:

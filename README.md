@@ -287,19 +287,6 @@ Environment effects are modular and applied during each simulation tick.
 
 ---
 
-## 📚 Examples
-
-### Environment Demo
-
-A standalone demo to show wind drift + terrain floor behavior:
-
-```bash
-cd examples/environment_demo
-go run main.go
-```
-
----
-
 ## 📌 Repo Entry Point
 
 Server main:

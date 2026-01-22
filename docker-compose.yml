@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  flight-simulator2:
+    # Option A (local build) ✅
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Option B (run published image) ✅
+    # image: ghcr.io/zenapo-hub/flight-simulator2:latest
+
+    container_name: flight-simulator2
+
+    ports:
+      - "8080:8080"
+
+    # Only if your app actually reads config.yaml (optional)
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 3s

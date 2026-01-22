@@ -1,0 +1,34 @@
+# Git
+.git
+
+# Build outputs
+bin/
+dist/
+out/
+tmp/
+
+# Go workspace
+go.work
+go.work.sum
+
+# Tests / coverage
+*.test
+*.cover
+*.coverprofile
+coverage.txt
+profile.out
+
+# Logs
+*.log
+
+# Local env files
+.env
+*.env
+
+# IDE
+.idea/
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db

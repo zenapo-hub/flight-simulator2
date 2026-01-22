@@ -14,11 +14,46 @@ Includes:
 
 ## ✅ Requirements
 
+Choose one of the following:
+
+### Option A: Run locally (Go)
 - Go 1.20+ recommended
+
+### Option B: Run with Docker (recommended)
+- Docker + Docker Compose (v2)
 
 ---
 
 ## 🏃 Run the Server
+
+### ✅ Build & run locally (Docker Compose)
+
+From repository root:
+
+```bash
+docker compose up --build
+```
+
+Server starts at:
+
+- `http://localhost:8080`
+
+Verify it is alive:
+
+```bash
+curl -s http://localhost:8080/health
+# ok
+```
+
+Stop:
+
+```bash
+docker compose down
+```
+
+---
+
+### Run locally (Go)
 
 From repository root:
 
